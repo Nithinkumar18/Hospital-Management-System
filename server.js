@@ -8,6 +8,7 @@ const userRoutes = require('./src/routes/userRoutes');
 const patientRoutes = require('./src/routes/patientRoutes');
 const doctorRoutes = require('./src/routes/doctorRoutes');
 const appointmentRoutes = require('./src/routes/appointmentRoutes');
+const billingRoutes = require('./src/routes/billingRoutes');
 
 
 dotenv.config();
@@ -17,6 +18,7 @@ app.use('/user/api',userRoutes);
 app.use('/patient/api',patientRoutes);
 app.use('/doctor/api',doctorRoutes);
 app.use('/appointment/api',appointmentRoutes);
+app.use('/bill/api',billingRoutes);
 mongoose.connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true 
