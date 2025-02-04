@@ -31,7 +31,18 @@ const statusInfo = {
     STATUS_CATEGORY: `We would like to inform you that no appointments were found under the status. If you require further assistance, please contact us.`,
     APPOINTMENT_DELETED: "We would like to inform you that your appointment has been successfully deleted",
     APPOINTMENT_DELETION_FAIL: "We regret to inform you that we were unable to delete your appointment  as no appointment found with given data",
-    APPOINTMENT_EXISTS: "We were unable to schedule this appointment,As doctor is already booked for this slot.Please check for another slot "
+    APPOINTMENT_EXISTS: "We were unable to schedule this appointment,As doctor is already booked for this slot.Please check for another slot ",
+    APPOINTMENT_STATUS: "Completed",
+    APPOINMENT_DUE:"Not Completed",
+    BILL_NOTGENERATED: "Kindly be informed that a bill cannot be generated until the appointment has been successfully completed",
+    BILL_GENERATED:"Please find your bill",
+    BILLS: "No bills were found to view",
+    BILL_UPDATED: "Your bill has been updated successfully",
+    BILL_NOT_FOUND: "No bill found with the provided data.Try Again with correct details",
+    BILL_DELETED: "Your request to delete bill has been processed successfully",
+    BILLS_PATIENT: "No Bills were found for this patient",
+    REVENUE_OVERTIME: "Your total revenue generated over given time is",
+    REVENUE: "Your total revenue is"
 }
 
 module.exports = statusInfo
