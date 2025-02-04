@@ -1,6 +1,6 @@
 
 
-const mongoose = required('mongoose');
+const mongoose = require('mongoose');
 const appointment = require("./appointment");
 const Schema = mongoose.Schema;
 
@@ -28,16 +28,7 @@ const billingSchema = new Schema({
         enum: ["Paid", "Unpaid"],
         required: true
     },
-
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-
-    updatedAt: {
-        type: Date,
-        default: Date.now
-    }
-})
+  
+},{timestamps:true})
 
 module.exports = mongoose.model("Billing",billingSchema);

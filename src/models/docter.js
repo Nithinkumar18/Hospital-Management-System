@@ -19,17 +19,6 @@ const docterSchema = new Schema({
         ref: "Patient"
     }],
 
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-
-    updatedAt: {
-        type: Date,
-        default: Date.now
-    }
-
-
-})
+},{timestamps:true})
 
 module.exports = mongoose.model( "Doctor",docterSchema);
