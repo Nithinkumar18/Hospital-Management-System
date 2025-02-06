@@ -7,7 +7,7 @@ async function generateBill(billinfo) {
     try {
         const appointmentId = billinfo.appointment;
         const checkAppointment = await appointment.findOne({ _id: appointmentId });
-        const appointmentStatus = checkAppointment.status;
+        const appointmentStatus = checkAppointment ? checkAppointment.status:null;
         if (checkAppointment && appointmentStatus === cnsinfo.APPOINTMENT_STATUS) {
             const billGenerated = await billing.create(billinfo);
             return billGenerated;
@@ -77,7 +77,6 @@ async function generatedRevenueOverTimeRange(fromDate, toDate) {
 
     }
     catch (err) {
-        console.log(err);
         throw err;
     }
 }
@@ -85,7 +84,7 @@ async function generatedRevenueOverTimeRange(fromDate, toDate) {
 async function totalRevenue() {
     let revenue = 0;
     try {
-        const _bills = await billing.find({ status: "Paid" });
+        const _bills = await billing.find({ status: "Paid" }) || []
         const generated_revenue = _bills.map((bill) => { return revenue += bill.amount });
         const revenuetobereturned = generated_revenue[generated_revenue.length - 1];
         return revenuetobereturned;

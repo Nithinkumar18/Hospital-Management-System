@@ -33,8 +33,19 @@ async function assignPatient(dctid,pid){
     }
 }
 
+async function noOfDoctors(){
+    try{
+        const doctor_records = await doctor.countDocuments();
+        return doctor_records;
+    }
+    catch(err){
+        throw err;
+    }
+}
+
 module.exports = {
     allocateDept,
     viewDoctors,
-    assignPatient
+    assignPatient,
+    noOfDoctors
 }

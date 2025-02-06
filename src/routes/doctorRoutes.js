@@ -5,6 +5,7 @@ const validateRequest = require('../middleware/userAuthorization');
 const validateRole = require('../middleware/roleAuthorization');
 
 router.get('/viewdoctors',validateRequest,doctorController.viewAllDoctors);
+router.get('/records',validateRequest,validateRole(['Admin']),doctorController.doctorRecords);
 router.post('/addDoctor',validateRequest,validateRole(['Admin']),doctorController.assignDept);
 router.put('/bookconsultation/:d_id',validateRequest,validateRole(['Staff','Admin']),doctorController.assignDoctorToPatient);
 

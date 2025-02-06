@@ -8,6 +8,7 @@ const validateRole = require('../middleware/roleAuthorization');
 
 router.post('/register',validateRequest,validateRole(['Staff','Admin']),patientController.addNewPatient);
 router.get('/profile/:id',validateRequest,validateRole(['Staff','Admin','Doctor']),patientController.viewPatient);
+router.get('/records',validateRequest,validateRole(['Admin']),patientController.patientRecords);
 router.get('/viewPatients',validateRequest,validateRole(['Staff','Admin','Doctor']),patientController.viewAllPatients);
 router.put('/profileupdate/:id',validateRequest,validateRole(['Staff','Admin','Doctor']),patientController.updateProfile);
 router.put('/deactivate/:id',validateRequest,validateRole(['Admin']),patientController.deletePatientRecord);
