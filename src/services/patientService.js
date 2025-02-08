@@ -51,10 +51,23 @@ async function deletePatientRecord(patientId,active){
         throw err;
     }
 }
+
+async function NoOfPatients(){
+  try{
+    const patient_records = await patient.countDocuments();
+    return patient_records;
+  }
+  catch(err){
+    throw err;
+  }
+}
+
+
 module.exports = {
     registerPatient,
     viewPatientInfo,
     updatePatientDetails,
     deletePatientRecord,
-    viewPatientsList
+    viewPatientsList,
+    NoOfPatients
 }

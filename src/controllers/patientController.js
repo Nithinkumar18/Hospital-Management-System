@@ -80,11 +80,23 @@ async function deletePatientRecord(req,res){
     }
 }
 
+
+async function patientRecords(req,res){
+  try{
+    const records = await patientService.NoOfPatients();
+    return res.status(cns.SUCCESS).json({status:cnsinfo.SUCESS_STATUS,TotalPatients:records});
+  }
+  catch(err){
+    return res.status(cns.INTERNALSERVERERROR).json({status:cnsinfo.ERROR_STATUS,ErrorMessage:err.message});
+  }
+}
+
 module.exports = {
     addNewPatient,
     viewPatient,
     updateProfile,
     deletePatientRecord,
-    viewAllPatients
+    viewAllPatients,
+    patientRecords
 
 }

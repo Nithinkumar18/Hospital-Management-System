@@ -29,6 +29,16 @@ async function viewAllDoctors(req,res){
   }
 }
 
+async function doctorRecords(req,res){
+  try{
+    const records = await docterService.noOfDoctors();
+    return res.status(cns.SUCCESS).json({status:cnsinfo.SUCESS_STATUS,TotalDoctors:records});
+  }
+  catch(err){
+    return res.status(cns.INTERNALSERVERERROR).json({status:cnsinfo.ERROR_STATUS,ErrorMessage:err.message});
+  }
+}
+
 async function assignDoctorToPatient(req,res){
     try{
        const doctor_id = req.params.d_id;
@@ -49,5 +59,6 @@ async function assignDoctorToPatient(req,res){
 module.exports = {
     assignDept,
     viewAllDoctors,
-    assignDoctorToPatient
+    assignDoctorToPatient,
+    doctorRecords
 }
