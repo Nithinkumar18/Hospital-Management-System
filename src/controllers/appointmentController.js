@@ -1,6 +1,9 @@
 const appointmentService = require('../services/appiontmentService');
 const cns = require('../constants/statusConstants');
 const cnsinfo = require('../constants/statusInfo');
+const mailService = require('../utilities/utility');
+const userService = require('../services/userService');
+const patientService = require('../services/patientService');
 
 
 async function scheduleAnAppointment(req, res) {
@@ -13,14 +16,19 @@ async function scheduleAnAppointment(req, res) {
 
         }
         else if(appointmentInfo){
-            
+           const docRecord = await userService.getUser(appointmentInfo.doctor);
+           const doctor = docRecord.username;
+           const patientRec = await patientService.viewPatientInfo(appointmentInfo.patient);
+           const patientEmail = patientRec.email;
+           const patientName  = patientRec.name;
             const Appointment_Id = appointmentInfo._id;
             const Appointment_Date = appointmentInfo.date;
             const Appointment_Time = appointmentInfo.time;
             const Appointment_Visit_Reason = appointmentInfo.visitReason;
             const current_status = appointmentInfo.status;
             const Appointment_CreatedTime = appointmentInfo.createdAt;
-            const appointmentDetails = { Appointment_Id, Appointment_Date, Appointment_Time, Appointment_Visit_Reason, current_status, Appointment_CreatedTime };
+            const appointmentDetails = { Appointment_Id, Appointment_Date, Appointment_Time, Appointment_Visit_Reason, current_status,doctor,Appointment_CreatedTime };
+            await mailService.sendNotification(doctor,patientEmail,patientName,Appointment_Date,Appointment_Time);
             return res.status(cns.CREATED).json({ status: cnsinfo.SUCESS_STATUS, Acknowledgement: cnsinfo.APPOINTMENT_SUCCESS, appointmentDetails });
         }
         else {
@@ -28,6 +36,7 @@ async function scheduleAnAppointment(req, res) {
         }
     }
     catch (err) {
+        console.log(err);
         return res.status(cns.INTERNALSERVERERROR).json({ status: cnsinfo.ERROR_STATUS, Acknowledgement: cnsinfo.APPOINTMENT_FAIL, ErrMessage: err.message });
     }
 };
@@ -39,10 +48,18 @@ async function updateAppointmentInfo(req, res) {
         const updateinfo = req.body;
         const updateInfoDetails = await appointmentService.udpateAppointment(appointment_id, updateinfo);
         if (updateInfoDetails) {
+            const patientRec = await patientService.viewPatientInfo(updateInfoDetails.patient);
+            const patientName = patientRec.name;
+            const patientEmail = patientRec.email;
+            const doctorRec = await userService.getUser(updateInfoDetails.doctor);
+            const doctorName = doctorRec.username;
             const Appointment_Id = updateInfoDetails._id;
             const current_status = updateInfoDetails.status;
             const lastUpdatedAt = updateInfoDetails.updatedAt;
+            const appointmentDate = updateInfoDetails.date;
+            const appointmentTime = updateInfoDetails.time;
             const Appointment_Details = { Appointment_Id, current_status, lastUpdatedAt };
+            await mailService.sendNotification(doctorName,patientEmail,patientName,appointmentDate,appointmentTime)
             return res.status(cns.SUCCESS).json({ status: cnsinfo.SUCESS_STATUS, Acknowledgement: cnsinfo.APPOINTMENT_UPDATE_SUCCESS, Appointment_Details });
 
         }

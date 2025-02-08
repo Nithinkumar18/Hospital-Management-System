@@ -13,7 +13,10 @@ const patientSchema = new Schema({
         type: Number,
         required: true
     },
-
+    
+    email:{
+        type: String
+    },
 
     gender: {
         type: String,

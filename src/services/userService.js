@@ -44,6 +44,15 @@ async function updateUserProfile(user_id, userupdateinfo) {
     }
 }
 
+async function getUser(id){
+    try{
+       const userDetails = await user.findOne({_id:id});
+       return userDetails;
+    }
+    catch(err){
+        throw err
+    }
+}
 async function deleteUser(userId) {
     try {
         const unregestered_user = await user.findByIdAndDelete(userId);
@@ -97,5 +106,6 @@ module.exports = {
     updateUserProfile,
     deleteUser,
     viewUsers,
-    userLogin
+    userLogin,
+    getUser
 }
