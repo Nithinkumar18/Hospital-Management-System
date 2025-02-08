@@ -4,7 +4,7 @@
   "description": "This is backend service for hospital management system",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "start": "nodemon server"
   },
   "repository": {

@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
-const axios = require('axios');
 require('dotenv').config();
+
 const  connectionTime = () => {
     return new Date().toLocaleTimeString('en-GB',{hour: '2-digit', minute: '2-digit',second: '2-digit'});
 }
@@ -23,7 +23,7 @@ const transporter = nodemailer.createTransport({
 
 async function sendNotification(docterName,patientEmail,patientName,appointmentDate,appointmentTime){
 
-    // const appointmentInfo = {docterName,patientEmail,patientName,appointmentDate,appointmentTime};
+   
     const msg_info =  await transporter.sendMail({
         from: '"Wellness Hospitals 🩺" <nithinvooturi93@gmail.com>',
         to: `${patientEmail}`,
@@ -38,32 +38,7 @@ async function sendNotification(docterName,patientEmail,patientName,appointmentD
                 Thanks<br/>
                Wellness Hospitals`
     });
-    // const api_key = process.env.API_KEY;
-    // const url = "https://my.brevo.com/template/lCDNaspqQiLoG7lo6pRbyt3uL77kndXpkx7cfoJxGzsKI3sg.G0IbcDh";
-    //  console.log(docterName,patientEmail,appointmentDate,appointmentTime);
-    // const emailData = {
-    //     sender: {name: "Wellness Hospitals 🩺", email: "nithinvooturi93@gmail.com"},
-    //     to: {email:patientEmail},
-    //     templateId: 1,
-    //     params:{
-    //         doctor:docterName,
-    //         time: appointmentTime,
-    //         date: appointmentDate
-    //     }
-    // }
-    // try{
-    //    const response = await axios.post(url,emailData,{
-    //      headers:{ 
-    //         "Content-Type": "application/json",
-    //          "api-key": api_key
-    //      }
-    //    })
-    //    console.log("Email has sent successfully",response.data.messageId);
-    // }
-    // catch(err){
-    //    console.log("Failed to sent email",err)
-    // }
-
+    
     console.log('appointment notification sent',msg_info.messageId);
 }
 

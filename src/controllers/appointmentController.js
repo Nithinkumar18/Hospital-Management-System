@@ -11,6 +11,7 @@ async function scheduleAnAppointment(req, res) {
         const appdata = req.body;
         const appointmentInfo = await appointmentService.scheduleAppointment(appdata);
         if (appointmentInfo === true) {
+            
             return res.status(cns.SUCCESS).json({status:cnsinfo.FAIL_STATUS,Acknowledgement:cnsinfo.APPOINTMENT_EXISTS});
            
 
