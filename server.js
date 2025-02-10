@@ -21,7 +21,6 @@ app.use('/doctor/api',doctorRoutes);
 app.use('/appointment/api',appointmentRoutes);
 app.use('/bill/api',billingRoutes);
 
-console.log(process.env.DB_CONNECTION,process.env.PORT);
 mongoose.connect(process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true 
